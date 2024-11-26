@@ -1,2 +1,4 @@
 @aave/=lib/aave-v3-core/
 forge-std/=lib/forge-std/src/
+@uniswap/=lib/uniswap-v3-core/
+@uniswap/v3-periphery/=lib/uniswap-v3-periphery/
