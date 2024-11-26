@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.10;
+pragma solidity ^0.8.24;
 
-import {IPool} from "@aave/core-v3/contracts/interfaces/IPool.sol";
-import {IFlashLoanSimpleReceiver} from "@aave/core-v3/contracts/flashloan/interfaces/IFlashLoanSimpleReceiver.sol";
-import {AaveProtocolDataProvider} from "@aave/core-v3/contracts/misc/AaveProtocolDataProvider.sol";
-import {AaveOracle} from "@aave/core-v3/contracts/misc/AaveOracle.sol";
-import {FlashLoanSimpleReceiverBase} from "@aave/core-v3/contracts/flashloan/base/FlashLoanSimpleReceiverBase.sol";
-import {IPoolAddressesProvider} from "@aave/core-v3/contracts/interfaces/IPoolAddressesProvider.sol";
-import {IERC20} from "@aave/core-v3/contracts/dependencies/openzeppelin/contracts/IERC20.sol";
+import {IPool} from "@aave/contracts/interfaces/IPool.sol";
+import {IFlashLoanSimpleReceiver} from "@aave/contracts/flashloan/interfaces/IFlashLoanSimpleReceiver.sol";
+import {AaveProtocolDataProvider} from "@aave/contracts/misc/AaveProtocolDataProvider.sol";
+import {AaveOracle} from "@aave/contracts/misc/AaveOracle.sol";
+import {FlashLoanSimpleReceiverBase} from "@aave/contracts/flashloan/base/FlashLoanSimpleReceiverBase.sol";
+import {IPoolAddressesProvider} from "@aave/contracts/interfaces/IPoolAddressesProvider.sol";
+import {IERC20} from "@aave/contracts/dependencies/openzeppelin/contracts/IERC20.sol";
 import {ISwapRouter} from "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
 import {TransferHelper} from "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Factory.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {IUniswapV3Factory} from "@uniswap/contracts/interfaces/IUniswapV3Factory.sol";
 
-import "hardhat/console.sol";
+import "forge-std/console.sol";
 
 contract FlashLiquidations is FlashLoanSimpleReceiverBase, Ownable {
     /// Parameters used for _liquidateAndSwap and final transfer of funds to owner
