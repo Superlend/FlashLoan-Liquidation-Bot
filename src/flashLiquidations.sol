@@ -11,7 +11,7 @@ import {IERC20} from "@aave/contracts/dependencies/openzeppelin/contracts/IERC20
 import {ISwapRouter} from "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
 import {TransferHelper} from "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-import {IUniswapV3Factory} from "@uniswap/contracts/interfaces/IUniswapV3Factory.sol";
+import {IUniswapV3Factory} from "@uniswap/v3-core/contracts/interfaces/IUniswapV3Factory.sol";
 
 import "forge-std/console.sol";
 
@@ -44,6 +44,7 @@ contract FlashLiquidations is FlashLoanSimpleReceiverBase, Ownable {
 
     constructor(IPoolAddressesProvider _addressProvider, ISwapRouter _swapRouter)
         FlashLoanSimpleReceiverBase(_addressProvider)
+        Ownable(msg.sender)
     {
         swapRouter = ISwapRouter(_swapRouter);
     }
