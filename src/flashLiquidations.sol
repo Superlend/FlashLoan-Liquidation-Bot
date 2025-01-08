@@ -198,7 +198,7 @@ contract FlashLiquidations is FlashLoanSimpleReceiverBase, Ownable {
         address pathToken,
         bool usePath
     ) internal returns (uint256 amountIn) {
-        console.log("Approving unisap router to spend collateral tokens");
+        console.log("Approving iguana router to spend collateral tokens");
         console.log("Amount to be approved", amountInMaximum);
         TransferHelper.safeApprove(tokenIn, address(swapRouter), amountInMaximum);
         require(
@@ -218,6 +218,7 @@ contract FlashLiquidations is FlashLoanSimpleReceiverBase, Ownable {
                 sqrtPriceLimitX96: 0
             });
             console.log("Getting debt tokens to repay flashLoan");
+            console.log("use path is false");
             console.log("Collateral balance", IERC20(tokenIn).balanceOf(address(this)));
             amountIn = swapRouter.exactOutputSingle(params);
         } else {
@@ -268,7 +269,6 @@ contract FlashLiquidations is FlashLoanSimpleReceiverBase, Ownable {
      * @param _amount -> amount of flash loaned token
      * @param colToken -> address of collateral token received from liquidating the position
      * @param user -> address of the user whose position is being liquidated
-     * @param decimals -> amount of decimals for the (debt token)
      * @param poolFee1 -> fee associated with Uniswap Pool
      * @param poolFee2 -> fee associated with Uniswap Pool
      * @param pathToken -> token needed to be swap between tokens
@@ -279,7 +279,6 @@ contract FlashLiquidations is FlashLoanSimpleReceiverBase, Ownable {
         uint256 _amount,
         address colToken,
         address user,
-        uint256 decimals,
         uint24 poolFee1,
         uint24 poolFee2,
         address pathToken,
@@ -287,7 +286,7 @@ contract FlashLiquidations is FlashLoanSimpleReceiverBase, Ownable {
     ) external onlyOwner {
         address receiverAddress = address(this);
         address asset = tokenAddress;
-        uint256 amount = _amount / 10 ** (18 - decimals);
+        uint256 amount = _amount;
         uint16 referralCode = 0;
 
         bytes memory params = abi.encode(colToken, asset, user, amount, poolFee1, poolFee2, pathToken, usePath);
