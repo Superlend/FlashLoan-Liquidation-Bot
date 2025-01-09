@@ -26,10 +26,7 @@ contract LiquidationTest is Test {
         mainnetFork = vm.createFork("https://node.mainnet.etherlink.com");
         vm.selectFork(mainnetFork);
         userToLiquidate = 0x1Aa5d50fDF8544Cace0DFBBe4ACb100780C8E5f8;
-        liquidation = new FlashLiquidations(
-            IPoolAddressesProvider(AAVE_ADDRESSES_PROVIDER), 
-            ISwapRouter(SWAP_ROUTER)
-        );
+        liquidation = new FlashLiquidations(IPoolAddressesProvider(AAVE_ADDRESSES_PROVIDER), ISwapRouter(SWAP_ROUTER));
     }
 
     function test_CreateLiquidatablePositionUser() public {
